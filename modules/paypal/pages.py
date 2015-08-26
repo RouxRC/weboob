@@ -63,6 +63,7 @@ class LoginPage(Page):
 
         code = ''.join(self.document.xpath('//script[contains(text(), "autosubmit")]/text()'))
         code = re.sub('if \(autosubmit.*', '', code)
+        code = code.replace('document.getElementById("page").style.display = "";', '')
         js = Javascript(code)
         func_name = re.search(r'function (\w+)\(e\)', code).group(1)
         self.browser['ads_token_js'] = str(js.call(func_name, self.browser['ads_token']))
